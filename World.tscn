@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b2k4rsyil3jga" path="res://player.tscn" id="1_c6gwx"]
 [ext_resource type="Texture2D" uid="uid://dtoqob4yjflrf" path="res://grasstop.png" id="2_2dftf"]
+[ext_resource type="PackedScene" uid="uid://bpopfrhbpxip7" path="res://enemy.tscn" id="3_bcbcq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bcbcq"]
 texture = ExtResource("2_2dftf")
@@ -24,22 +25,25 @@ tile_set = SubResource("TileSet_g2wqv")
 metadata/_edit_group_ = true
 
 [node name="Player" parent="." unique_id=2144773536 instance=ExtResource("1_c6gwx")]
-position = Vector2(122, 65)
+position = Vector2(183, 47)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=949850118]
+[node name="Enemy" parent="." unique_id=2030800117 instance=ExtResource("3_bcbcq")]
+position = Vector2(207, 90)
 
-[node name="top" type="CollisionShape2D" parent="StaticBody2D" unique_id=299153328]
+[node name="Borders" type="StaticBody2D" parent="." unique_id=949850118]
+
+[node name="top" type="CollisionShape2D" parent="Borders" unique_id=299153328]
 position = Vector2(128, -5)
 shape = SubResource("RectangleShape2D_g2wqv")
 
-[node name="bottom" type="CollisionShape2D" parent="StaticBody2D" unique_id=375594919]
+[node name="bottom" type="CollisionShape2D" parent="Borders" unique_id=375594919]
 position = Vector2(128, 149)
 shape = SubResource("RectangleShape2D_g2wqv")
 
-[node name="left" type="CollisionShape2D" parent="StaticBody2D" unique_id=1208253888]
+[node name="left" type="CollisionShape2D" parent="Borders" unique_id=1208253888]
 position = Vector2(-5, 72)
 shape = SubResource("RectangleShape2D_7eefp")
 
-[node name="right" type="CollisionShape2D" parent="StaticBody2D" unique_id=173704807]
+[node name="right" type="CollisionShape2D" parent="Borders" unique_id=173704807]
 position = Vector2(261, 72)
 shape = SubResource("RectangleShape2D_7eefp")
