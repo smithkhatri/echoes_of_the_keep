@@ -9,6 +9,7 @@ extends CharacterBody2D
 # --- Combat Variables ---
 @export var base_damage: float = 10.0
 var attack_state: String = "idle" # States: "idle", "swinging", "combo_window"
+var combo_locked: bool = false
 
 @onready var sword_hitbox: Area2D = $SwordHitbox
 
@@ -27,6 +28,8 @@ func _physics_process(_delta: float) -> void:
 			perform_swing_1()
 		elif attack_state == "combo_window":
 			perform_swing_2()
+		elif attack_state == 'swinging':
+			combo_locked = true
 
 	if is_dodging:
 		# During dodge, maintain the burst velocity
@@ -59,6 +62,7 @@ func _physics_process(_delta: float) -> void:
 
 	move_and_slide()
 
+
 func start_dodge(direction: Vector2) -> void:
 	is_dodging = true
 	can_dodge = false
@@ -76,46 +80,49 @@ func start_dodge(direction: Vector2) -> void:
 	await get_tree().create_timer(dodge_cooldown).timeout
 	can_dodge = true
 
+
 func perform_swing_1() -> void:
 	attack_state = "swinging"
+	combo_locked = false
 	animated_sprite.play("swing_1")
 	
 	check_hitbox(base_damage)
 
+
 func perform_swing_2() -> void:
 	attack_state = "swinging"
+	combo_locked = false
 	animated_sprite.play("swing_2")
 	
 	# Check for enemies and apply 1.2x multiplier
-	check_hitbox(base_damage * 1.2)
+	check_hitbox(base_damage * 1.5)
 
-#func check_hitbox(damage_amount: float) -> void:
-	## Get an array of all Area2D nodes currently touching our sword box
-	#var overlapping_areas = sword_hitbox.get_overlapping_areas()
-	#
-	#for area in overlapping_areas:
-		## Check if the object we hit is actually an enemy
-		#if area.is_in_group("enemy"):
-			#area.take_damage(damage_amount)
 
 func check_hitbox(damage_amount: float) -> void:
+	# Get an array of all Area2D nodes currently touching our sword box
 	var overlapping_areas = sword_hitbox.get_overlapping_areas()
-
+	
 	for area in overlapping_areas:
+		# Check if the object we hit is actually an enemy
 		if area.is_in_group("enemy"):
 			area.take_damage(damage_amount)
+
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	# If the first swing just finished, open the 0.5-second window
 	if animated_sprite.animation == "swing_1":
-		attack_state = "combo_window"
-		animated_sprite.play("idle_after_swing_1") # Return to a resting pose while waiting
+		if combo_locked:
+			attack_state = "idle"
+			animated_sprite.play("idle")
+		else:
+			attack_state = "combo_window"
+			animated_sprite.play("idle_after_swing_1") # Return to a resting pose while waiting
 		
 		# Start the strict 0.5 second countdown
-		await get_tree().create_timer(0.2).timeout
+			await get_tree().create_timer(0.2).timeout
 		
-		if attack_state == "combo_window":
-			attack_state = "idle"
+			if attack_state == "combo_window":
+				attack_state = "idle"
 		
 	elif animated_sprite.animation == "swing_2":
 		attack_state = "idle"

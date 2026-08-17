@@ -3,7 +3,7 @@ extends Area2D
 @export var max_hp: float = 100.0
 var current_hp: float
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	# Initialize health when the enemy spawns

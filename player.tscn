@@ -7,8 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://cbvwryh7dho1u" path="res://Tiny Swords Animation Pack/Units/Black Units/Warrior/Warrior_Attack2.png" id="5_sweqy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yaatp"]
-radius = 4.0
-height = 10.0
+radius = 19.0
+height = 62.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sweqy"]
 atlas = ExtResource("2_i3pqv")
@@ -200,28 +200,26 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q7v0p"]
-radius = 7.0
-height = 14.0
+radius = 43.0
+height = 122.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2144773536]
-position = Vector2(128, 72)
 script = ExtResource("1_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1810541711]
-position = Vector2(2, 3)
 shape = SubResource("CapsuleShape2D_yaatp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1442780482]
-position = Vector2(3, 3)
-scale = Vector2(0.15, 0.15)
+position = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_yaatp")
 animation = &"idle"
 autoplay = "idle"
 
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=2058688461]
+position = Vector2(44, 41)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox" unique_id=1925697571]
-position = Vector2(5, 4)
+position = Vector2(-44, -41)
 rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_q7v0p")
 
