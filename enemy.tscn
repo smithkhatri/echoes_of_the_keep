@@ -7,10 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dxxo6jk7xm1w5" path="res://Tiny Swords Animation Pack/Units/Red Units/Warrior/Warrior_Idle.png" id="5_e1ltt"]
 [ext_resource type="Texture2D" uid="uid://isey2gmxrbwx" path="res://Tiny Swords Animation Pack/Units/Red Units/Warrior/Warrior_Run.png" id="6_dxifv"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yaatp"]
-radius = 18.0
-height = 68.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_pwjut"]
 atlas = ExtResource("2_3yqyl")
 region = Rect2(0, 0, 192, 192)
@@ -138,7 +134,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_doop2")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack_1",
 "speed": 10.0
 }, {
@@ -155,7 +151,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g2u8i")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"attack_2",
 "speed": 10.0
 }, {
@@ -235,13 +231,35 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Enemy" type="Area2D" unique_id=2030800117 groups=["enemy"]]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yaatp"]
+radius = 18.0
+height = 68.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yaatp"]
+radius = 643.95184
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3yqyl"]
+radius = 39.0
+height = 114.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=830765925]
 script = ExtResource("1_4gyqm")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=361317266]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1809546191]
+sprite_frames = SubResource("SpriteFrames_7k104")
+animation = &"attack_2"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=82740524]
 shape = SubResource("CapsuleShape2D_yaatp")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1694004058]
-sprite_frames = SubResource("SpriteFrames_7k104")
-animation = &"run"
-autoplay = "idle"
+[node name="DetectionArea" type="Area2D" parent="." unique_id=1318650929]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=921149064]
+shape = SubResource("CircleShape2D_yaatp")
+
+[node name="AttackArea" type="Area2D" parent="." unique_id=724538745]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=244423579]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_3yqyl")

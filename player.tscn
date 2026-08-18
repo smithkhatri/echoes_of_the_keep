@@ -203,7 +203,7 @@ animations = [{
 radius = 43.0
 height = 122.0
 
-[node name="Player" type="CharacterBody2D" unique_id=2144773536]
+[node name="Player" type="CharacterBody2D" unique_id=2144773536 groups=["player"]]
 script = ExtResource("1_onrkg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1810541711]

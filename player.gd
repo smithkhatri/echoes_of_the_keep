@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 # --- Movement Variables ---
 @export var speed: float = 50
-@export var dodge_speed: float = 280.0
+@export var dodge_speed: float = 150
 @export var dodge_duration: float = 0.2
 @export var dodge_cooldown: float = 0.6
 
@@ -20,6 +20,17 @@ var dodge_direction: Vector2 = Vector2.ZERO
 
 # 1. Update the node reference to target your AnimatedSprite2D
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+
+signal health_changed(current_health, max_health)
+
+var max_health: float = 100.0
+var current_health: float
+
+
+func _ready() -> void:
+	add_to_group("player")
+	current_health = max_health
 
 func _physics_process(_delta: float) -> void:
 	# --- Combat Input Logic ---
@@ -127,3 +138,16 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	elif animated_sprite.animation == "swing_2":
 		attack_state = "idle"
 		animated_sprite.play("idle")
+
+
+func take_damage(amount: float) -> void:
+	current_health -= amount
+	print("Player took damage! HP left: ", current_health)
+	emit_signal("health_changed", current_health, max_health)
+	if current_health <= 0:
+		die()
+
+func die() -> void:
+	print("Player died!")
+	# For now, just reload the scene or reset
+	get_tree().reload_current_scene()
