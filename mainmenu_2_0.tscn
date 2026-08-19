@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://6umrdugglu8s" path="res://mainmenu_2_0.gd" id="1_ahr6n"]
 [ext_resource type="FontFile" uid="uid://wiujo1xl8nfr" path="res://files/Lancelot-Regular.ttf" id="2_8t6hl"]
 [ext_resource type="Texture2D" uid="uid://bh8cn8k8inafl" path="res://files/logoless.jpg" id="2_s8tx4"]
-[ext_resource type="Texture2D" uid="uid://nunvsqxra625" path="res://files/logo123-removebg-preview.png" id="3_0l54o"]
+[ext_resource type="Texture2D" uid="uid://bsm6yqwo460et" path="res://finalfinallogo (1).png" id="3_s8tx4"]
 
 [sub_resource type="Image" id="Image_s8tx4"]
 data = {
@@ -754,7 +754,7 @@ anchors_preset = -1
 offset_top = -1.0
 offset_right = 256.0
 offset_bottom = 143.0
-texture = ExtResource("3_0l54o")
+texture = ExtResource("3_s8tx4")
 expand_mode = 1
 
 [node name="MadeByLabel" type="Label" parent="." unique_id=1133793812]
