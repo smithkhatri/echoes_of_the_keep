@@ -214,6 +214,7 @@ position = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_yaatp")
 animation = &"idle"
 autoplay = "idle"
+frame_progress = 0.96119857
 
 [node name="SwordHitbox" type="Area2D" parent="." unique_id=2058688461]
 position = Vector2(44, 41)

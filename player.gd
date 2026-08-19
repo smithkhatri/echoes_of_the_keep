@@ -28,11 +28,16 @@ var max_health: float = 100.0
 var current_health: float
 
 
+
+
 func _ready() -> void:
 	add_to_group("player")
 	current_health = max_health
 
 func _physics_process(_delta: float) -> void:
+	if (Input.is_action_just_pressed("rewind")):
+		TimeManager.rewind()
+
 	# --- Combat Input Logic ---
 	if Input.is_action_just_pressed("attack"):
 		if attack_state == "idle":
@@ -72,6 +77,10 @@ func _physics_process(_delta: float) -> void:
 		start_dodge(input_vector)
 
 	move_and_slide()
+
+
+
+
 
 
 func start_dodge(direction: Vector2) -> void:
@@ -151,3 +160,25 @@ func die() -> void:
 	print("Player died!")
 	# For now, just reload the scene or reset
 	get_tree().reload_current_scene()
+
+
+func get_rewind_state() -> Dictionary:
+	return {
+		"position": global_position,
+		"health": current_health
+	}
+
+func set_rewind_state(state: Dictionary) -> void:
+	# Restore position and health
+	global_position = state["position"]
+	current_health = state["health"]
+	
+	# Force idle state
+	attack_state = "idle"
+	combo_locked = false
+	is_dodging = false
+	can_dodge = true
+	velocity = Vector2.ZERO
+	animated_sprite.play("idle")
+	# Reset any active modifiers (e.g., dodge tint)
+	modulate = Color(1, 1, 1, 1)

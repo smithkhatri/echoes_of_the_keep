@@ -2,10 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dxjd7kbt5iw8j" path="res://enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://obh2p2efypuj" path="res://Tiny Swords Animation Pack/Units/Red Units/Warrior/Warrior_Attack1.png" id="2_3yqyl"]
+[ext_resource type="Script" uid="uid://ybuyapar7cl0" path="res://hurtbox.gd" id="2_wujgv"]
 [ext_resource type="Texture2D" uid="uid://dns01mtmapge6" path="res://Tiny Swords Animation Pack/Units/Red Units/Warrior/Warrior_Attack2.png" id="3_wujgv"]
 [ext_resource type="Texture2D" uid="uid://d4a5jkgx7sbqd" path="res://Tiny Swords Animation Pack/Units/Red Units/Warrior/Warrior_Guard.png" id="4_hb8ge"]
 [ext_resource type="Texture2D" uid="uid://dxxo6jk7xm1w5" path="res://Tiny Swords Animation Pack/Units/Red Units/Warrior/Warrior_Idle.png" id="5_e1ltt"]
 [ext_resource type="Texture2D" uid="uid://isey2gmxrbwx" path="res://Tiny Swords Animation Pack/Units/Red Units/Warrior/Warrior_Run.png" id="6_dxifv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r3ag1"]
+radius = 19.0
+height = 70.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pwjut"]
 atlas = ExtResource("2_3yqyl")
@@ -242,8 +247,14 @@ radius = 643.95184
 radius = 39.0
 height = 114.0
 
-[node name="Enemy" type="CharacterBody2D" unique_id=830765925]
+[node name="Enemy" type="CharacterBody2D" unique_id=830765925 groups=["enemy_rewind"]]
 script = ExtResource("1_4gyqm")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1744810309 groups=["enemy"]]
+script = ExtResource("2_wujgv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=446282433]
+shape = SubResource("CapsuleShape2D_r3ag1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1809546191]
 sprite_frames = SubResource("SpriteFrames_7k104")
@@ -254,11 +265,13 @@ autoplay = "idle"
 shape = SubResource("CapsuleShape2D_yaatp")
 
 [node name="DetectionArea" type="Area2D" parent="." unique_id=1318650929]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=921149064]
 shape = SubResource("CircleShape2D_yaatp")
 
 [node name="AttackArea" type="Area2D" parent="." unique_id=724538745]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea" unique_id=244423579]
 rotation = -1.5707964
