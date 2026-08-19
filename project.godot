@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="echoes_of_the_keep"
-run/main_scene="uid://cl0ux0vx6i2cq"
+run/main_scene="uid://culu3dl2iapts"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://files/icon.svg"
 
 [autoload]
 
@@ -26,6 +26,10 @@ window/size/viewport_height=144
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/custom_font="uid://cdh607w7xtrc2"
 
 [input]
 

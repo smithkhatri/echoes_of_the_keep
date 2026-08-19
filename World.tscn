@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cl0ux0vx6i2cq"]
 
 [ext_resource type="PackedScene" uid="uid://b2k4rsyil3jga" path="res://player.tscn" id="1_c6gwx"]
-[ext_resource type="Texture2D" uid="uid://dtoqob4yjflrf" path="res://grasstop.png" id="2_2dftf"]
+[ext_resource type="Texture2D" uid="uid://dtoqob4yjflrf" path="res://files/Png/grasstop.png" id="2_2dftf"]
 [ext_resource type="PackedScene" uid="uid://bpopfrhbpxip7" path="res://enemy.tscn" id="3_bcbcq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bcbcq"]

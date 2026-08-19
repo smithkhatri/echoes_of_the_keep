@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://cdh607w7xtrc2"]
+
+[ext_resource type="FontFile" uid="uid://wiujo1xl8nfr" path="res://files/Lancelot-Regular.ttf" id="1_470mv"]
+
+[resource]
+default_font = ExtResource("1_470mv")
+default_font_size = 0
