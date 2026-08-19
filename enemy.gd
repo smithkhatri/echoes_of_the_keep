@@ -23,11 +23,16 @@ var can_attack: bool = true
 @onready var detection_area: Area2D = $DetectionArea
 @onready var attack_area: Area2D = $AttackArea
 
+
+var is_dead: bool = false
+
+
 # Target (player)
 var player: CharacterBody2D = null
 
 
 func _ready() -> void:
+	add_to_group("enemy_rewind")
 	player = get_tree().get_first_node_in_group("player")
 	health = max_health
 	# Connect the detection area's signal so we know when player enters/leaves
@@ -40,11 +45,13 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# Check if dead first
 	if current_state == EnemyState.DEAD:
+		_state_dead(delta)
 		return
 
 	# Check if health depleted
 	if health <= 0:
 		_change_state(EnemyState.DEAD)
+		_state_dead(delta)
 		return
 
 	# Update based on current state
@@ -57,6 +64,7 @@ func _physics_process(delta: float) -> void:
 			_state_attack(delta)
 		EnemyState.HURT:
 			_state_hurt(delta)
+
 
 
 func _state_idle(delta: float) -> void:
@@ -127,6 +135,9 @@ func _state_hurt(delta: float) -> void:
 
 
 func _state_dead(delta: float) -> void:
+	if is_dead:
+		return
+	is_dead = true
 	# Play death animation (or just queue_free)
 	sprite.modulate = Color(1,0,0)
 	await get_tree().create_timer(0.2).timeout
@@ -177,6 +188,35 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 
 
+
+
+func get_rewind_state() -> Dictionary:
+	return {
+		"position": global_position,
+		"health": health
+	}
+
+func set_rewind_state(state: Dictionary) -> void:
+	global_position = state["position"]
+	health = state["health"]
+	
+	# Force idle state
+	current_state = EnemyState.IDLE
+	velocity = Vector2.ZERO
+	sprite.play("idle")
+	sprite.modulate = Color(1, 1, 1, 1)   # reset any red tint
+
+
+
+
+#func take_damage(amount: float) -> void:
+	#current_hp -= amount
+	#print("Enemy took damage! HP left: ", current_hp)
+	#
+	#if current_hp <= 0:
+		#die()
+
+
 #
 #@export var max_hp: float = 100.0
 #var current_hp: float
@@ -187,13 +227,7 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 	## Initialize health when the enemy spawns
 	#current_hp = max_hp
 #
-#func take_damage(amount: float) -> void:
-	#current_hp -= amount
-	#print("Enemy took damage! HP left: ", current_hp)
-	#
-	#if current_hp <= 0:
-		#die()
-#
+
 #func die() -> void:
 	## Turn the sprite red
 	#sprite.modulate = Color(1.0, 0.0, 0.0, 1.0)
